@@ -1,5 +1,6 @@
 variable "name" {}
 variable "pubkey" {}
+variable "amount" {}
 
 variable "location" {
   default = "West Europe"
@@ -53,7 +54,7 @@ variable "network_subnet_range" {
 }
 
 variable "network_vm_interface_ip" {
-  default = "10.0.2.10"
+  default = "10.0.2.1"
   validation {
     condition = (
       can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.network_vm_interface_ip))

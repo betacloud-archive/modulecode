@@ -13,7 +13,9 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_public_ip" "pubinterface" {
-  name                = "${var.name}-acceptanceTestPublicIp1"
+  count = var.amount
+
+  name                = "${var.name}-acceptanceTestPublicIp1-${count.index}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   allocation_method   = "Static"
@@ -24,15 +26,18 @@ resource "azurerm_public_ip" "pubinterface" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "${var.name}-nic"
+  count = var.amount
+
+  name                = "${var.name}-nic-${count.index}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
   ip_configuration {
     name                          = "primary"
     subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = var.network_vm_interface_ip
-    public_ip_address_id          = azurerm_public_ip.pubinterface.id
+    private_ip_address_allocation = "Dynamic"
+    #private_ip_address_allocation = "Static"
+    #private_ip_address            = "${var.network_vm_interface_ip}${count.index}"
+    public_ip_address_id          = element(azurerm_public_ip.pubinterface.*.id, count.index)
   }
 }

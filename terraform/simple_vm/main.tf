@@ -11,10 +11,12 @@ resource "azurerm_ssh_public_key" "pubkey" {
 }
 
 resource "azurerm_virtual_machine" "vm" {
-  name                             = "${var.name}-vm"
+  count = var.amount
+
+  name                             = "${var.name}-vm-${count.index}"
   location                         = azurerm_resource_group.main.location
   resource_group_name              = azurerm_resource_group.main.name
-  network_interface_ids            = [azurerm_network_interface.nic.id]
+  network_interface_ids            = [element(azurerm_network_interface.nic.*.id, count.index)]
   vm_size                          = var.flavor
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
@@ -27,7 +29,7 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   storage_os_disk {
-    name              = "${var.name}-osdisk"
+    name              = "${var.name}-osdisk-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
