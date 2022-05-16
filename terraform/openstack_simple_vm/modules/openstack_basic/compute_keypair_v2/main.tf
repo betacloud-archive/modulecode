@@ -1,4 +1,4 @@
 resource "openstack_compute_keypair_v2" "keypair" {
   name       = var.name
-  public_key = file(pathexpand(var.path))
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCwzGoKKPDue/eYEyN5mEfjgGnE8CozFFY27QYMCLGboyjYjBoev+IvFph0rgGgkXVgpKw9kRdo3+TxVgcvXB73dZk8pE1TF0pq8otSWWqk1T6Tn+rsGcmKO9cLZPZnYGWXi8idZv3ElbsjNX8UI3K6kqxSiWi/NXJO5xEhNBsFw7SlT6X4bOVr7ufmE0v0gG/WnbmbtqkfU5vwQcOHgcKb97X/umPzMjHZEaeBTIiNvJ3s9Wl+44kw8uA5NkLDTdGU7jr3R8tOF0kaRynAuSC0O34MCaCzPAhAVATuKP9B6nPvpgIKL8L/dYLquFBseBfHsS5ZEtILfAc5ttQPVz7WK45f5/Bd+PsXwRjYF/LEY3FHTmjtwOPW5zPCyaKryXfcdxLROrZBP2rs75Eh3nxXG+asiBOzjfs1N58zwmdpij72bTU322MIzSHU7V3xNgpQDSg2+kWTpkiuIBlxqr+GQUg/RqycMqQ9LGFLA7la5g2g+Rcyhit5qu5H6+Ur8FE="
 }
